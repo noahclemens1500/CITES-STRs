@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CITES STR Marker Database</title>
+<meta name="description" content="Search tetranucleotide STR markers and PCR primers for CITES-listed genera, predicted in silico from NCBI genome assemblies.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231f6f5c'/%3E%3Cpath d='M9 6c0 7 14 7 14 14M23 6c0 7-14 7-14 14M9 26c0-3 3-5 7-6M23 26c0-3-3-5-7-6' stroke='white' stroke-width='2.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css?v=20261026190257">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="#" data-nav="search">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7"/><path d="M9 6c0 7 14 7 14 14M23 6c0 7-14 7-14 14M9 26c0-3 3-5 7-6M23 26c0-3-3-5-7-6"/></svg>
+      <span><strong>CITES STR</strong> Marker Database</span>
+    </a>
+    <nav class="tabs" aria-label="Main">
+      <button data-nav="search" class="active">Search</button>
+      <button data-nav="browse">Browse genera</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- ============ SEARCH ============ -->
+  <section id="view-search" class="view">
+    <div class="hero wrap" id="hero">
+      <h1>Find STR markers for a CITES-listed genus</h1>
+      <p class="lede">Tetranucleotide microsatellites with ready-to-order PCR primers, predicted from NCBI genome assemblies and checked for variability across all available genomes of the genus.</p>
+    </div>
+    <div class="wrap">
+      <div class="search-box" role="combobox" aria-expanded="false" aria-owns="suggest" aria-haspopup="listbox">
+        <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+        <input id="genus-input" type="search" autocomplete="off" spellcheck="false"
+               placeholder="Genus, family, order or species – e.g. Equus, Psittacidae, Hippocampus kuda"
+               aria-label="Search genus" aria-autocomplete="list" aria-controls="suggest">
+        <ul id="suggest" class="suggest" role="listbox" hidden></ul>
+      </div>
+      <p class="hint" id="db-stats">Loading database …</p>
+    </div>
+
+    <div class="wrap" id="genus-view" hidden>
+      <div class="genus-card" id="genus-card"></div>
+
+      <div class="layout">
+        <aside class="filters" id="filters" aria-label="Filters">
+          <div class="filters-head">
+            <h2>Filters</h2>
+            <button class="link" id="reset-filters" type="button">Reset</button>
+          </div>
+          <div id="filter-body"></div>
+        </aside>
+
+        <section class="results" aria-label="Markers">
+          <div class="results-bar">
+            <button class="btn ghost only-mobile" id="toggle-filters" type="button" aria-controls="filters" aria-expanded="false">Filters</button>
+            <p id="count" class="count" aria-live="polite"></p>
+            <div class="bar-actions">
+              <details class="menu">
+                <summary class="btn ghost">Columns</summary>
+                <div class="menu-pop" id="col-menu"></div>
+              </details>
+              <details class="menu">
+                <summary class="btn">Download</summary>
+                <div class="menu-pop">
+                  <button type="button" id="dl-csv">Filtered markers (CSV)</button>
+                  <button type="button" id="dl-tsv">Filtered markers (TSV, Excel)</button>
+                  <button type="button" id="dl-fasta">Primers (FASTA)</button>
+                </div>
+              </details>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table id="marker-table">
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="pager" id="pager"></div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BROWSE ============ -->
+  <section id="view-browse" class="view" hidden>
+    <div class="wrap">
+      <h1 class="page-title">All genera in the database</h1>
+      <div class="browse-bar">
+        <input id="browse-q" type="search" placeholder="Filter by name, family, order …" aria-label="Filter genera">
+        <select id="browse-class" aria-label="Class"><option value="">All classes</option></select>
+        <select id="browse-cites" aria-label="CITES Appendix"><option value="">All appendices</option>
+          <option value="I">Appendix I</option><option value="II">Appendix II</option><option value="III">Appendix III</option></select>
+      </div>
+      <p class="count" id="browse-count"></p>
+      <div class="table-wrap">
+        <table id="browse-table"><thead></thead><tbody></tbody></table>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="drawer" id="drawer" hidden>
+  <div class="drawer-backdrop" data-close></div>
+  <aside class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
+    <button class="drawer-close" type="button" data-close aria-label="Close">×</button>
+    <div id="drawer-body"></div>
+  </aside>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>In-silico predictions from public NCBI genome assemblies – validate before use. Data: <span id="footer-meta">–</span></p>
+  </div>
+</footer>
+<script src="app.js?v=20261026190257"></script>
+</body>
+</html>
